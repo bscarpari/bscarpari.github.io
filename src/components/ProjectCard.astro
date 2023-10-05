@@ -1,0 +1,72 @@
+---
+import type { Project } from "@/data/projects";
+import { Image } from "astro:assets";
+
+type Props = Project;
+
+const { image, alt, title, techs, link, isComingSoon } = Astro.props;
+
+const formatTechs = (values: string[]) =>
+  values.toString().replaceAll(",", " • ");
+---
+
+<>
+  {
+    isComingSoon && (
+      <div class="t group flex w-full flex-col justify-between gap-2 rounded-md border border-neutral-700 p-4 md:flex-row md:items-center">
+        <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
+          <p class="text-neutral-100">{title}</p>
+          <p>{formatTechs(techs)}</p>
+        </div>
+
+        <p class="w-fit rounded-md bg-neutral-900 px-4 py-1">Soon</p>
+      </div>
+    )
+  }
+
+  {
+    !isComingSoon && (
+      <a
+        class="relative group flex w-full cursor-pointer flex-col justify-between gap-2 sapce-y-4 rounded-md border border-neutral-700 p-4 transition-all duration-300 hover:-translate-y-2 hover:border-neutral-400"
+        href={link}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <div class="group aspect-auto block w-full overflow-hidden rounded-lg focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+          <Image
+            class="pointer-events-none object-cover group-hover:opacity-75 w-full"
+            src={image}
+            alt={alt}
+            width={400}
+            height={100}
+          />
+        </div>
+        <div class="mt-4">
+          <p class="text-neutral-100">{title}</p>
+          <p>{formatTechs(techs)}</p>
+        </div>
+
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 18 18"
+          fill="none"
+          class="transition-all duration-300 group-hover:translate-x-1 absolute top-5 right-5"
+        >
+          <path
+            d="M5.25 12.75L12.75 5.25"
+            stroke="#999999"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M5.25 5.25H12.75V12.75"
+            stroke="#999999"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+    )
+  }
+</>
