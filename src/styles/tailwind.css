@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Create a custom scrollbar with apply */
+@layer base {
+
+  /* Define the scrollbar width, height, and background color */
+  ::-webkit-scrollbar {
+    @apply w-1 h-1 bg-transparent;
+  }
+
+  /* Define the scrollbar thumb background color and border radius */
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neutral-900 rounded-full;
+  }
+}
